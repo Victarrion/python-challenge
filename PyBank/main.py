@@ -35,29 +35,60 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 
 #print("cwd is: "+cwd)
+net_income=0
+greatest_month=0
+worst_month=0
+month_counter=0
+full_data=[]
+save_worst=["",""]
+save_best=["",""]
 
 
-csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
-# '..'= in current folder, in the resources folder, look for budget_data.scv
+csvpath = os.path.join('.', 'Resources', 'budget_data.csv')
+# '.'= in current folder, in the resources folder, look for budget_data.scv
 with open(csvpath) as csvfile:
 
     # CSV reader specifies delimiter and variable that holds contents
    csvreader = csv.reader(csvfile, delimiter=',')
 
-   print(csvreader)
+   # print(csvreader) #points to memory storage
 
     # Read the header row first (skip this step if there is no header)
- #   csv_header = next(csvreader)
- #   print(f"CSV Header: {csv_header}")
+   csv_header = next(csvreader)
+   #print(f"CSV Header: {csv_header}") #prints header
 
     # Read each row of data after the header
- #   for row in csvreader:
-#        print(row)
+   for row in csvreader:
+         
+         month_counter +=1
+         date_extend=row[0].split("-")
+         date_extend.extend(row)
+         date_extend[2]=float(date_extend[3])
+         #print(date_extend)
+         full_data.append(date_extend)
 
+for x in range(len(full_data)):
+   #print(full_data[x])
+   #print(full_data[x][3])
+   #print(row)
+   if float(full_data[x][3])>0 and greatest_month<float(full_data[x][3]):
+      greatest_month=int(full_data[x][3])
+      save_best[0]=full_data[x][0]
+      save_best[1]=full_data[x][1]
+      
+   elif float(full_data[x][3])<0 and worst_month>float(full_data[x][3]):    
 
-month_counter=0
-net_income=0
-average_income=0
-greatest_month=0
-worst_month=0
+      worst_month=int(full_data[x][3])
+      save_worst[0]=full_data[x][0]
+      save_worst[1]=full_data[x][1]
+      
+   net_income=net_income+int(full_data[x][3])
+      
+# text split into a list
+# new list with text split+row
 
+average_income=int(net_income/month_counter)
+
+print("average: "+str(average_income))
+print("Greatest Decrease in Profits: "+save_worst[1]+" "+save_worst[0]+" "+str(worst_month))
+print("Greatest Increase in Profits: "+save_best[1]+" "+save_best[0]+" "+str(greatest_month))
