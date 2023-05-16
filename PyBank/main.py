@@ -89,6 +89,10 @@ for x in range(len(full_data)):
 
 average_income=int(net_income/month_counter)
 
+print("Financial Analysis")
+print("----------------------------")
+print("total months: "+str(month_counter))
+Print("Total:"+str(net_income))
 print("average: "+str(average_income))
 print("Greatest Decrease in Profits: "+save_worst[1]+" "+save_worst[0]+" "+str(worst_month))
 print("Greatest Increase in Profits: "+save_best[1]+" "+save_best[0]+" "+str(greatest_month))
