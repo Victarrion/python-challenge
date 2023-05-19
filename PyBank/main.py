@@ -64,7 +64,7 @@ with open(csvpath) as csvfile:
          date_extend=row[0].split("-")
          date_extend.extend(row)
          date_extend[2]=float(date_extend[3])
-         print(date_extend)
+         
          full_data.append(date_extend)
 
 for x in range(len(full_data)):
