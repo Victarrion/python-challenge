@@ -78,7 +78,7 @@ print("----------------------------")
 print("Total Votes: "+str(votecount_total))
 print("----------------------------")
 for x in range(len(candidates)):
-    print("Votes Obtained by:" +str(candidates[x])+" -> "+str(round((candidates_votes[x]/votecount_total*100),2))+"%"+"("+str(candidates_votes[x])+")")
+    print("Votes Obtained by: " +str(candidates[x])+" -> "+str(round((candidates_votes[x]/votecount_total*100),2))+"% "+"("+str(candidates_votes[x])+")")
 print("----------------------------")
 print("Winner: "+candidates[leader_position])
 print("----------------------------")
