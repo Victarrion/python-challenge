@@ -39,6 +39,7 @@ net_income=0
 greatest_month=0
 worst_month=0
 month_counter=0
+total_change=0
 full_data=[]
 save_worst=["",""]
 save_best=["",""]
@@ -64,35 +65,35 @@ with open(csvpath) as csvfile:
          date_extend=row[0].split("-")
          date_extend.extend(row)
          date_extend[2]=float(date_extend[3])
-         
          full_data.append(date_extend)
 
-for x in range(len(full_data)):
-   #print(full_data[x])
-   #print(full_data[x][3])
-   #print(row)
-   if float(full_data[x][3])>0 and greatest_month<float(full_data[x][3]):
-      greatest_month=int(full_data[x][3])
-      save_best[0]=full_data[x][0]
-      save_best[1]=full_data[x][1]
-      
-   elif float(full_data[x][3])<0 and worst_month>float(full_data[x][3]):    
 
-      worst_month=int(full_data[x][3])
-      save_worst[0]=full_data[x][0]
-      save_worst[1]=full_data[x][1]
+
+
+for x in range(len(full_data)-1):
+   
+   change=int(full_data[x+1][3])-int(full_data[x][3])
+
+   if int(change)>0 and greatest_month<int(change):
+      greatest_month=int(change)
+      save_best[0]=full_data[x+1][0]
+      save_best[1]=full_data[x+1][1]
       
+   elif int(change)<0 and worst_month>int(change):    
+
+      worst_month=int(change)
+      save_worst[0]=full_data[x+1][0]
+      save_worst[1]=full_data[x+1][1]
+      
+   total_change=total_change+change
    net_income=net_income+int(full_data[x][3])
-      
-# text split into a list
-# new list with text split+row
 
-average_income=int(net_income/month_counter)
+
 
 print("Financial Analysis")
 print("----------------------------")
 print("total months: "+str(month_counter))
 print("Total: "+str(net_income))
-print("average: "+str(average_income))
+print("average: "+str(round((total_change/(month_counter-1)),2)) )        #compensating counting method
 print("Greatest Decrease in Profits: "+save_worst[1]+" "+save_worst[0]+" $"+str(worst_month))
 print("Greatest Increase in Profits: "+save_best[1]+" "+save_best[0]+" $"+str(greatest_month))
